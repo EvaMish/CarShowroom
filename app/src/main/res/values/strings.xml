@@ -5,7 +5,7 @@
     <string name="pass">Password</string>
     <string name="username">Username</string>
     <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
+    <string name="second_name">Last name</string>
     <string name="age">Age</string>
     <string name="gender">Gender</string>
     <string name="sign_in">Sign in</string>
@@ -17,9 +17,9 @@
     <string name="genderFemale">Female</string>
     <string name="genderMale">Male</string>
     <string name="passValid">The password must contain at least 6 characters.</string>
-    <string name="userNameValid">The password must contain at least 3 characters.</string>
-    <string name="firstNameValid">The password must contain at least 3 characters.</string>
-    <string name="secondNameValid">The password must contain at least 3 characters.</string>
+    <string name="userNameValid">The user name must contain at least 3 characters.</string>
+    <string name="firstNameValid">The first name must contain at least 3 characters.</string>
+    <string name="secondNameValid">The second name must contain at least 3 characters.</string>
     <string name="emailValid">Incorrect E-Mail Address.</string>
     <string name="required_to_fill">This field is required.</string>
 

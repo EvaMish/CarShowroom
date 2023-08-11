@@ -6,7 +6,7 @@
     <string name="pass">Пароль</string>
     <string name="username">Имя пользователя</string>
     <string name="first_name">Имя</string>
-    <string name="last_name">Фамилия</string>
+    <string name="second_name">Фамилия</string>
     <string name="age">Возраст</string>
     <string name="gender">Пол</string>
     <string name="sign_in">Войти</string>
@@ -18,9 +18,9 @@
     <string name="genderFemale">Женский</string>
     <string name="genderMale">Мужской</string>
     <string name="passValid">Пароль должен содержать не менее 6 символов.</string>
-    <string name="userNameValid">Пароль должен содержать не менее 3 символов.</string>
-    <string name="firstNameValid">Пароль должен содержать не менее 3 символов.</string>
-    <string name="secondNameValid">Пароль должен содержать не менее 3 символов.</string>
+    <string name="userNameValid">Имя пользователя должно содержать не менее 3 символов.</string>
+    <string name="firstNameValid">Имя должно содержать не менее 3 символов.</string>
+    <string name="secondNameValid">Фамилия должна содержать не менее 3 символов.</string>
     <string name="emailValid">Неверный адрес электронной почты.</string>
     <string name="required_to_fill">Это поле обязательно для заполнения.</string>
 </resources>

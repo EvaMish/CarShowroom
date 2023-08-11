@@ -1,7 +1,6 @@
 package com.example.port.ui.theme.navigation.screens
 
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,9 +24,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonColors
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -39,10 +37,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +46,10 @@ import com.example.port.R
 import com.example.port.ui.theme.PortTheme
 import com.example.port.ui.theme.elements.AnimatedCounter
 import com.example.port.ui.theme.valid.validateEmail
+import com.example.port.ui.theme.valid.validateFirstName
 import com.example.port.ui.theme.valid.validatePassword
+import com.example.port.ui.theme.valid.validateSecondName
+import com.example.port.ui.theme.valid.validateUserName
 
 
 @Composable
@@ -67,34 +66,39 @@ fun RegScreen(onRegisterClick: () -> Unit) {
 
     //state value
     val userEmailState = remember { mutableStateOf("") }
-    // Добавьте состояние для ошибки "Email"
-    val emailErrorState = remember { mutableStateOf("") }
+    val userEmailErrorState = remember { mutableStateOf("") }
 
     val userPasswordState = remember { mutableStateOf("") }
+    val userPasswordErrorState = remember { mutableStateOf("") }
+
     val userNameState = remember { mutableStateOf("") }
+    val userNameErrorState = remember { mutableStateOf("") }
+
     val userFirstNameState = remember { mutableStateOf("") }
-    val userLastNameState = remember { mutableStateOf("") }
+    val userFirstNameErrorState = remember { mutableStateOf("") }
+
+    val userSecondNameState = remember { mutableStateOf("") }
+    val userSecondNameErrorState = remember { mutableStateOf("") }
     val userAgeState = remember { mutableStateOf("") }
     val userGenderState = remember { mutableStateOf("") }
-    val passwordErrorState = remember { mutableStateOf("") }
+
 
     val resources = LocalContext.current.resources
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
 
         Box(
             modifier = Modifier
-                .fillMaxWidth() // Занимает всю доступную ширину
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             contentAlignment = Alignment.Center,
 
             ) {
             Card(
                 modifier = Modifier
-                    .fillMaxWidth() // Занимает всю доступную ширину контейнера
+                    .fillMaxWidth()
                     .padding(16.dp),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 10.dp
@@ -106,8 +110,7 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                 ) {
                     items(1) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -121,45 +124,91 @@ fun RegScreen(onRegisterClick: () -> Unit) {
 
                             Spacer(modifier = Modifier.height(40.dp))
 
-                            TextField(
+                            //поле для имя пользователя
+                            OutlinedTextField(
                                 value = userNameState.value,
-                                onValueChange = { userEmailState.value = it },
-                                label = { Text(text = resources.getString(R.string.username)) }
+                                onValueChange = { newValue ->
+                                    userNameState.value = newValue
+
+                                    userNameErrorState.value = validateUserName(newValue, resources)
+                                },
+                                label = { Text(text = resources.getString(R.string.username)) },
+                                isError = userNameErrorState.value.isNotEmpty()
                             )
+
+                            if (userNameErrorState.value.isNotEmpty()) {
+                                Text(
+                                    text = userNameErrorState.value,
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                            }
 
                             Spacer(modifier = Modifier.height(15.dp))
 
-                            TextField(
+                            //поле для имени
+                            OutlinedTextField(
                                 value = userFirstNameState.value,
-                                onValueChange = { userEmailState.value = it },
-                                label = { Text(text = resources.getString(R.string.first_name)) }
+                                onValueChange = { newValue ->
+                                    userFirstNameState.value = newValue
+
+                                    userFirstNameErrorState.value = validateFirstName(newValue, resources)
+                                },
+                                label = { Text(text = resources.getString(R.string.first_name)) },
+                                isError = userFirstNameErrorState.value.isNotEmpty()
                             )
+
+                            if (userFirstNameErrorState.value.isNotEmpty()) {
+                                Text(
+                                    text = userFirstNameErrorState.value,
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                            }
 
                             Spacer(modifier = Modifier.height(15.dp))
 
-                            TextField(
-                                value = userLastNameState.value,
-                                onValueChange = { userEmailState.value = it },
-                                label = { Text(text = resources.getString(R.string.last_name)) }
+                            //поле для фамилии
+                            OutlinedTextField(
+                                value = userSecondNameState.value,
+                                onValueChange = { newValue ->
+                                    userSecondNameState.value = newValue
+
+                                    userSecondNameErrorState.value = validateSecondName(newValue, resources)
+                                },
+                                label = { Text(text = resources.getString(R.string.second_name)) },
+                                isError = userSecondNameErrorState.value.isNotEmpty()
                             )
+
+                            if (userSecondNameErrorState.value.isNotEmpty()) {
+                                Text(
+                                    text = userSecondNameErrorState.value,
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                            }
+
 
                             Spacer(modifier = Modifier.height(15.dp))
 
                             //поле для эл почты
-                            TextField(
+                            OutlinedTextField(
                                 value = userEmailState.value,
                                 onValueChange = { newValue ->
                                     userEmailState.value = newValue
-                                    // Проверяем адрес электронной почты и обновляем состояние ошибки
-                                    emailErrorState.value = validateEmail(newValue, resources)
+
+                                    userEmailErrorState.value = validateEmail(newValue, resources)
                                 },
                                 label = { Text(text = resources.getString(R.string.mail)) },
-                                isError = emailErrorState.value.isNotEmpty() // Показываем ошибку, если сообщение об ошибке не пустое
+                                isError = userEmailErrorState.value.isNotEmpty()
                             )
 
-                            if (emailErrorState.value.isNotEmpty()) {
+                            if (userEmailErrorState.value.isNotEmpty()) {
                                 Text(
-                                    text = emailErrorState.value,
+                                    text = userEmailErrorState.value,
                                     color = Color.Red,
                                     fontSize = 12.sp,
                                     modifier = Modifier.padding(vertical = 4.dp)
@@ -169,20 +218,20 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                             Spacer(modifier = Modifier.height(15.dp))
 
                             //поле для пароля
-                            TextField(
+                            OutlinedTextField(
                                 value = userPasswordState.value,
                                 onValueChange = { newValue ->
                                     userPasswordState.value = newValue
-                                    // Проверяем пароль и обновляем состояние ошибки
-                                    passwordErrorState.value = validatePassword(newValue, resources)
+                                    userPasswordErrorState.value =
+                                        validatePassword(newValue, resources)
                                 },
                                 label = { Text(text = resources.getString(R.string.pass)) },
-                                isError = passwordErrorState.value.isNotEmpty() // Показываем ошибку, если сообщение об ошибке не пустое
+                                isError = userPasswordErrorState.value.isNotEmpty()
                             )
 
-                            if (passwordErrorState.value.isNotEmpty()) {
+                            if (userPasswordErrorState.value.isNotEmpty()) {
                                 Text(
-                                    text = passwordErrorState.value,
+                                    text = userPasswordErrorState.value,
                                     color = Color.Red,
                                     fontSize = 12.sp,
                                     modifier = Modifier.padding(vertical = 4.dp)
@@ -211,21 +260,18 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 RadioButton(
                                     selected = selectedGender.value == "Female",
                                     onClick = { selectedGender.value = "Female" },
-                                    //colors=RadioButtonDefaults.colors(Color.Blue)
                                 )
                                 Text(resources.getString(R.string.genderFemale), fontSize = 10.sp)
 
                                 RadioButton(
                                     selected = selectedGender.value == "Male",
                                     onClick = { selectedGender.value = "Male" },
-                                    //colors=RadioButtonDefaults.colors(Color.Blue)
                                 )
                                 Text(resources.getString(R.string.genderMale), fontSize = 10.sp)
 
                                 IconButton(onClick = { count = (count - 1).coerceAtLeast(18) }) {
                                     Icon(
-                                        Icons.Default.ChevronLeft,
-                                        contentDescription = "Decrement"
+                                        Icons.Default.ChevronLeft, contentDescription = "Decrement"
                                     )
                                 }
                                 AnimatedCounter(
@@ -234,24 +280,25 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 )
                                 IconButton(onClick = { count = (count + 1).coerceAtLeast(18) }) {
                                     Icon(
-                                        Icons.Default.ChevronRight,
-                                        contentDescription = "Increment"
+                                        Icons.Default.ChevronRight, contentDescription = "Increment"
                                     )
                                 }
                             }
 
                             Spacer(modifier = Modifier.height(25.dp))
 
-                            val isValidEmail = emailErrorState.value.isBlank()
-                            val isValidPassword = passwordErrorState.value.isBlank()
+                            val isValidEmail = userEmailErrorState.value.isBlank()
+                            val isValidPassword = userPasswordErrorState.value.isBlank()
+                            val isValidUserName = userNameState.value.isBlank()
+                            val isValidFirstName = userFirstNameState.value.isBlank()
+                            val isValidSecondName = userSecondNameState.value.isBlank()
 
-                            Button(
-                                onClick = {
-                                    if (isValidEmail && isValidPassword) {
-                                        onRegisterClick()
-                                    }
+
+                            Button(onClick = {
+                                if (isValidEmail && isValidPassword && isValidUserName && isValidFirstName && isValidSecondName) {
+                                    onRegisterClick()
                                 }
-                            ) {
+                            }) {
                                 Text(text = resources.getString(R.string.sign_up))
                             }
 
@@ -260,9 +307,9 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                             Text(
                                 text = resources.getString(R.string.have_account),
                                 modifier = Modifier.clickable {
-                                    // В этой лямбде будет выполняться действие при клике на текст
                                     onRegisterClick()
-                                }, fontSize = 10.sp
+                                },
+                                fontSize = 10.sp
                             )
 
                         }
