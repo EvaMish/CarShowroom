@@ -1,6 +1,5 @@
 package com.example.port.ui.theme.navigation.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -15,22 +14,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.port.R
 import com.example.port.data.models.Car
 import com.example.port.ui.theme.PortTheme
+import com.example.port.ui.theme.elements.CarCard
 
 private val carList = getCarList()
 
@@ -43,44 +39,6 @@ fun CarList(cars: List<Car>, onClick: () -> Unit) {
         items(cars) { car ->
             CarCard(car, onClick)
             Spacer(modifier = Modifier.height(16.dp))
-        }
-    }
-}
-
-@Composable
-fun CarCard(car: Car, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        )
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            AsyncImage(
-                model = car.imageUrl,
-                contentDescription = "Car Photo",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clip(shape = RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "${car.brand} ${car.model}",
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Text(text = car.year.toString())
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = onClick,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(text = "Оставить заявку")
-            }
         }
     }
 }
@@ -112,6 +70,15 @@ private fun getCarList(): List<Car> {
 @Composable
 fun ScreenMain(onClick: () -> Unit) {
     CarList(carList, onClick)
+}
+
+@Preview
+@Composable
+fun CarListPreview() {
+    PortTheme(darkTheme = true) {
+        CarList(carList) {}
+    }
+
 }
 
 

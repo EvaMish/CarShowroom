@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Port</string>
+    <string name="auth">Авторизация</string>
+    <string name="mail">E-mail</string>
+    <string name="pass">Пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="age">Возраст</string>
+    <string name="gender">Пол</string>
+    <string name="sign_in">Войти</string>
+    <string name="request">Оствить заявку</string>
+    <string name="registration">Регистрация</string>
+    <string name="have_account">У Вас уже есть аккаунт?</string>
+    <string name="doNot_account">У вас еще нет аккаунта?</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="genderFemale">Женский</string>
+    <string name="genderMale">Мужской</string>
+    <string name="passValid">Пароль должен содержать не менее 6 символов.</string>
+    <string name="userNameValid">Пароль должен содержать не менее 3 символов.</string>
+    <string name="firstNameValid">Пароль должен содержать не менее 3 символов.</string>
+    <string name="secondNameValid">Пароль должен содержать не менее 3 символов.</string>
+    <string name="emailValid">Неверный адрес электронной почты.</string>
+    <string name="required_to_fill">Это поле обязательно для заполнения.</string>
+</resources>

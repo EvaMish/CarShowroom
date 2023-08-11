@@ -1,4 +1,27 @@
 <resources>
     <string name="app_name">Port</string>
-    <string name="auth">Auth</string>
+    <string name="auth">Authorization</string>
+    <string name="mail">E-mail</string>
+    <string name="pass">Password</string>
+    <string name="username">Username</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="sign_in">Sign in</string>
+    <string name="request">Submit your application</string>
+    <string name="registration">Registration</string>
+    <string name="have_account">Do you already have an account?</string>
+    <string name="doNot_account">Do not you have an account yet?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="genderFemale">Female</string>
+    <string name="genderMale">Male</string>
+    <string name="passValid">The password must contain at least 6 characters.</string>
+    <string name="userNameValid">The password must contain at least 3 characters.</string>
+    <string name="firstNameValid">The password must contain at least 3 characters.</string>
+    <string name="secondNameValid">The password must contain at least 3 characters.</string>
+    <string name="emailValid">Incorrect E-Mail Address.</string>
+    <string name="required_to_fill">This field is required.</string>
+
+
 </resources>
