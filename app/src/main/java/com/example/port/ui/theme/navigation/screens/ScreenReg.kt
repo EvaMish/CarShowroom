@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.example.port.R
 import com.example.port.ui.theme.PortTheme
 import com.example.port.ui.theme.elements.AnimatedCounter
+import com.example.port.ui.theme.elements.BottomNavigationWithNavController
 import com.example.port.ui.theme.valid.validateEmail
 import com.example.port.ui.theme.valid.validateFirstName
 import com.example.port.ui.theme.valid.validatePassword
@@ -65,6 +66,8 @@ fun ScreenReg(onClick: () -> Unit) {
 fun RegScreen(onRegisterClick: () -> Unit) {
 
     //state value
+    val selectedGender = remember { mutableStateOf("") }
+
     val userEmailState = remember { mutableStateOf("") }
     val userEmailErrorState = remember { mutableStateOf("") }
 
@@ -82,13 +85,16 @@ fun RegScreen(onRegisterClick: () -> Unit) {
     val userAgeState = remember { mutableStateOf("") }
     val userGenderState = remember { mutableStateOf("") }
 
-
+    val isValidEmail = userEmailErrorState.value.isBlank()
+    val isValidPassword = userPasswordErrorState.value.isBlank()
+    val isValidUserName = userNameState.value.isBlank()
+    val isValidFirstName = userFirstNameState.value.isBlank()
+    val isValidSecondName = userSecondNameState.value.isBlank()
     val resources = LocalContext.current.resources
 
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -106,7 +112,7 @@ fun RegScreen(onRegisterClick: () -> Unit) {
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 55.dp)
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 15.dp)
                 ) {
                     items(1) {
                         Column(
@@ -153,7 +159,8 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 onValueChange = { newValue ->
                                     userFirstNameState.value = newValue
 
-                                    userFirstNameErrorState.value = validateFirstName(newValue, resources)
+                                    userFirstNameErrorState.value =
+                                        validateFirstName(newValue, resources)
                                 },
                                 label = { Text(text = resources.getString(R.string.first_name)) },
                                 isError = userFirstNameErrorState.value.isNotEmpty()
@@ -176,7 +183,8 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 onValueChange = { newValue ->
                                     userSecondNameState.value = newValue
 
-                                    userSecondNameErrorState.value = validateSecondName(newValue, resources)
+                                    userSecondNameErrorState.value =
+                                        validateSecondName(newValue, resources)
                                 },
                                 label = { Text(text = resources.getString(R.string.second_name)) },
                                 isError = userSecondNameErrorState.value.isNotEmpty()
@@ -190,7 +198,6 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                     modifier = Modifier.padding(vertical = 4.dp)
                                 )
                             }
-
 
                             Spacer(modifier = Modifier.height(15.dp))
 
@@ -238,7 +245,6 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 )
                             }
 
-
                             Spacer(modifier = Modifier.height(40.dp))
                             var count by remember {
                                 mutableIntStateOf(18)
@@ -248,11 +254,6 @@ fun RegScreen(onRegisterClick: () -> Unit) {
 
                                 Spacer(modifier = Modifier.width(100.dp))
                                 Text(text = resources.getString(R.string.age))
-                            }
-
-
-                            val selectedGender = remember {
-                                mutableStateOf("")
                             }
 
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -287,13 +288,6 @@ fun RegScreen(onRegisterClick: () -> Unit) {
 
                             Spacer(modifier = Modifier.height(25.dp))
 
-                            val isValidEmail = userEmailErrorState.value.isBlank()
-                            val isValidPassword = userPasswordErrorState.value.isBlank()
-                            val isValidUserName = userNameState.value.isBlank()
-                            val isValidFirstName = userFirstNameState.value.isBlank()
-                            val isValidSecondName = userSecondNameState.value.isBlank()
-
-
                             Button(onClick = {
                                 if (isValidEmail && isValidPassword && isValidUserName && isValidFirstName && isValidSecondName) {
                                     onRegisterClick()
@@ -302,7 +296,7 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 Text(text = resources.getString(R.string.sign_up))
                             }
 
-                            Spacer(modifier = Modifier.height(25.dp))
+                            Spacer(modifier = Modifier.height(15.dp))
 
                             Text(
                                 text = resources.getString(R.string.have_account),

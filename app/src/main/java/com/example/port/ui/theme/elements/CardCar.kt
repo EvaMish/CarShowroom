@@ -1,5 +1,11 @@
 
 package com.example.port.ui.theme.elements
+
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -28,8 +33,8 @@ import com.example.port.data.models.Car
 fun CarCard(car: Car, onClick: () -> Unit) {
 
     val isDescriptionVisible = remember { mutableStateOf(false) }
-
     val resources = LocalContext.current.resources
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,6 +69,21 @@ fun CarCard(car: Car, onClick: () -> Unit) {
         }
     }
     if (isDescriptionVisible.value) {
+//        val isEditState = remember { mutableStateOf(false) }
+//        AnimatedContent(
+//            targetState = isEditState.value,
+//            transitionSpec = {
+//                (slideInVertically() with slideOutVertically()).using(SizeTransform(clip = false))
+//            }
+//        ) { targetState ->
+//            if (targetState) {
+//
+//            } else {
+//
+//            }
+//        }
+
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
