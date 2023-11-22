@@ -1,4 +1,4 @@
-package com.example.port.ui.theme.navigation.screens
+package com.example.port.ui.theme.screens
 
 
 import androidx.compose.foundation.clickable
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
@@ -28,7 +29,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -39,18 +39,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.port.R
 import com.example.port.ui.theme.PortTheme
 import com.example.port.ui.theme.elements.AnimatedCounter
-import com.example.port.ui.theme.elements.BottomNavigationWithNavController
 import com.example.port.ui.theme.valid.validateEmail
-import com.example.port.ui.theme.valid.validateFirstName
-import com.example.port.ui.theme.valid.validatePassword
-import com.example.port.ui.theme.valid.validateSecondName
-import com.example.port.ui.theme.valid.validateUserName
+import com.example.port.ui.theme.valid.validateString
 
 
 @Composable
@@ -112,7 +110,7 @@ fun RegScreen(onRegisterClick: () -> Unit) {
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 15.dp)
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 55.dp)
                 ) {
                     items(1) {
                         Column(
@@ -136,9 +134,18 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 onValueChange = { newValue ->
                                     userNameState.value = newValue
 
-                                    userNameErrorState.value = validateUserName(newValue, resources)
+                                    userNameErrorState.value =
+                                        validateString(newValue, resources, 4)
                                 },
-                                label = { Text(text = resources.getString(R.string.username)) },
+                                label = {
+                                    Text(
+                                        text = resources.getString(R.string.username),
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                },
+                                shape = RoundedCornerShape(25.dp),
                                 isError = userNameErrorState.value.isNotEmpty()
                             )
 
@@ -160,9 +167,17 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                     userFirstNameState.value = newValue
 
                                     userFirstNameErrorState.value =
-                                        validateFirstName(newValue, resources)
+                                        validateString(newValue, resources, 3)
                                 },
-                                label = { Text(text = resources.getString(R.string.first_name)) },
+                                label = {
+                                    Text(
+                                        text = resources.getString(R.string.first_name),
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                },
+                                shape = RoundedCornerShape(25.dp),
                                 isError = userFirstNameErrorState.value.isNotEmpty()
                             )
 
@@ -184,9 +199,17 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                     userSecondNameState.value = newValue
 
                                     userSecondNameErrorState.value =
-                                        validateSecondName(newValue, resources)
+                                        validateString(newValue, resources, 3)
                                 },
-                                label = { Text(text = resources.getString(R.string.second_name)) },
+                                label = {
+                                    Text(
+                                        text = resources.getString(R.string.second_name),
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                },
+                                shape = RoundedCornerShape(25.dp),
                                 isError = userSecondNameErrorState.value.isNotEmpty()
                             )
 
@@ -209,7 +232,15 @@ fun RegScreen(onRegisterClick: () -> Unit) {
 
                                     userEmailErrorState.value = validateEmail(newValue, resources)
                                 },
-                                label = { Text(text = resources.getString(R.string.mail)) },
+                                label = {
+                                    Text(
+                                        text = resources.getString(R.string.mail),
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                },
+                                shape = RoundedCornerShape(25.dp),
                                 isError = userEmailErrorState.value.isNotEmpty()
                             )
 
@@ -230,9 +261,17 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 onValueChange = { newValue ->
                                     userPasswordState.value = newValue
                                     userPasswordErrorState.value =
-                                        validatePassword(newValue, resources)
+                                        validateString(newValue, resources, 6)
                                 },
-                                label = { Text(text = resources.getString(R.string.pass)) },
+                                label = {
+                                    Text(
+                                        text = resources.getString(R.string.pass),
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                },
+                                shape = RoundedCornerShape(25.dp),
                                 isError = userPasswordErrorState.value.isNotEmpty()
                             )
 
@@ -250,10 +289,20 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 mutableIntStateOf(18)
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(text = resources.getString(R.string.gender))
+                                Text(
+                                    text = resources.getString(R.string.gender),
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Light,
+                                    fontSize = 12.sp
+                                )
 
                                 Spacer(modifier = Modifier.width(100.dp))
-                                Text(text = resources.getString(R.string.age))
+                                Text(
+                                    text = resources.getString(R.string.age),
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Light,
+                                    fontSize = 12.sp
+                                )
                             }
 
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -262,13 +311,23 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                     selected = selectedGender.value == "Female",
                                     onClick = { selectedGender.value = "Female" },
                                 )
-                                Text(resources.getString(R.string.genderFemale), fontSize = 10.sp)
+                                Text(
+                                    resources.getString(R.string.genderFemale),
+                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Light,
+                                )
 
                                 RadioButton(
                                     selected = selectedGender.value == "Male",
                                     onClick = { selectedGender.value = "Male" },
                                 )
-                                Text(resources.getString(R.string.genderMale), fontSize = 10.sp)
+                                Text(
+                                    resources.getString(R.string.genderMale),
+                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Light,
+                                )
 
                                 IconButton(onClick = { count = (count - 1).coerceAtLeast(18) }) {
                                     Icon(
@@ -277,7 +336,7 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 }
                                 AnimatedCounter(
                                     count = count,
-                                    style = MaterialTheme.typography.bodyMedium,
+                                    style = MaterialTheme.typography.bodySmall,
                                 )
                                 IconButton(onClick = { count = (count + 1).coerceAtLeast(18) }) {
                                     Icon(
@@ -296,13 +355,15 @@ fun RegScreen(onRegisterClick: () -> Unit) {
                                 Text(text = resources.getString(R.string.sign_up))
                             }
 
-                            Spacer(modifier = Modifier.height(15.dp))
+                            Spacer(modifier = Modifier.height(25.dp))
 
                             Text(
                                 text = resources.getString(R.string.have_account),
                                 modifier = Modifier.clickable {
                                     onRegisterClick()
                                 },
+                                fontFamily = FontFamily.SansSerif,
+                                fontWeight = FontWeight.Light,
                                 fontSize = 10.sp
                             )
 

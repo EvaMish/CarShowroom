@@ -2,6 +2,7 @@
 package com.example.port.ui.theme.elements
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.port.R
 import com.example.port.data.models.Car
+
 
 @Composable
 fun CarCard(car: Car, onClick: () -> Unit) {

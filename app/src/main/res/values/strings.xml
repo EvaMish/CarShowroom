@@ -22,6 +22,8 @@
     <string name="secondNameValid">The second name must contain at least 3 characters.</string>
     <string name="emailValid">Incorrect E-Mail Address.</string>
     <string name="required_to_fill">This field is required.</string>
-
+    <string name="home_item_bottom">Home</string>
+    <string name="search_item_bottom">Search</string>
+    <string name="person_item_bottom">Person</string>
 
 </resources>

@@ -1,17 +1,16 @@
-package com.example.port.ui.theme.navigation.screens
+package com.example.port.ui.theme.screens
 
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -20,8 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,14 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.fontResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.port.R
 import com.example.port.ui.theme.PortTheme
-import com.example.port.ui.theme.elements.BottomNavigationWithNavController
+
 import com.example.port.ui.theme.valid.validateEmail
 
 @Composable
@@ -53,12 +51,11 @@ fun LoginScreen(onAuthClick: () -> Unit) {
     val userEmailState = remember { mutableStateOf("") }
     val userEmailErrorState = remember { mutableStateOf("") }
 
-    val userPasswordErrorState = remember { mutableStateOf("") }
-    val userPasswordState = remember { mutableStateOf("") }
+    val passwordState = remember { mutableStateOf("") }
 
     val resources = LocalContext.current.resources
     val isValidEmail = userEmailErrorState.value.isBlank()
-    val isValidPassword = userEmailErrorState.value.isBlank()
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -69,8 +66,9 @@ fun LoginScreen(onAuthClick: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxWidth() // Занимает всю доступную ширину
-                .padding(horizontal = 26.dp),
+                .padding(horizontal = 16.dp),
             contentAlignment = Alignment.Center,
+
 
             ) {
             Card(
@@ -81,7 +79,6 @@ fun LoginScreen(onAuthClick: () -> Unit) {
                     defaultElevation = 10.dp
                 )
             ) {
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -92,7 +89,8 @@ fun LoginScreen(onAuthClick: () -> Unit) {
                     Text(
                         text = resources.getString(R.string.auth),
                         fontSize = 20.sp,
-                        style = MaterialTheme.typography.titleLarge
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Light,
                     )
                     Spacer(modifier = Modifier.height(40.dp))
                     OutlinedTextField(
@@ -102,7 +100,15 @@ fun LoginScreen(onAuthClick: () -> Unit) {
 
                             userEmailErrorState.value = validateEmail(newValue, resources)
                         },
-                        label = { Text(text = resources.getString(R.string.mail)) },
+                        shape = RoundedCornerShape(25.dp),
+                        label = {
+                            Text(
+                                text = resources.getString(R.string.mail),
+                                fontFamily = FontFamily.SansSerif,
+                                fontWeight = FontWeight.Light,
+                                fontSize = 12.sp
+                            )
+                        },
                         isError = userEmailErrorState.value.isNotEmpty()
                     )
 
@@ -113,23 +119,24 @@ fun LoginScreen(onAuthClick: () -> Unit) {
                             fontSize = 12.sp,
                             modifier = Modifier.padding(vertical = 4.dp)
                         )
+                        onAuthClick()
+
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     OutlinedTextField(
-                        value = userPasswordState.value,
-                        onValueChange = { userPasswordState.value = it },
-                        label = { Text(text = resources.getString(R.string.pass)) },
+                        value = passwordState.value,
+                        onValueChange = { passwordState.value = it },
+                        label = {
+                            Text(
+                                text = resources.getString(R.string.pass),
+                                fontFamily = FontFamily.SansSerif,
+                                fontWeight = FontWeight.Light,
+                                fontSize = 12.sp
+                            )
+                        },
+                        shape = RoundedCornerShape(25.dp),
                         visualTransformation = PasswordVisualTransformation()
                     )
-                    if (userPasswordErrorState.value.isNotEmpty()) {
-                        Text(
-                            text = userPasswordErrorState.value,
-                            color = Color.Red,
-                            fontSize = 12.sp,
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        )
-                    }
-
                     Spacer(modifier = Modifier.height(40.dp))
                     Button(onClick = { onAuthClick() }) {
                         Text(text = resources.getString(R.string.sign_in))
@@ -140,7 +147,10 @@ fun LoginScreen(onAuthClick: () -> Unit) {
                         modifier = Modifier.clickable {
                             // В этой лямбде будет выполняться действие при клике на текст
                             onAuthClick()
-                        }, fontSize = 10.sp
+                        },
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 12.sp
                     )
                     Spacer(modifier = Modifier.height(100.dp))
 
@@ -150,7 +160,6 @@ fun LoginScreen(onAuthClick: () -> Unit) {
         }
     }
 }
-
 
 @Preview
 @Composable

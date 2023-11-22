@@ -23,4 +23,8 @@
     <string name="secondNameValid">Фамилия должна содержать не менее 3 символов.</string>
     <string name="emailValid">Неверный адрес электронной почты.</string>
     <string name="required_to_fill">Это поле обязательно для заполнения.</string>
+    <string name="home_item_bottom">Домашняя</string>
+    <string name="search_item_bottom">Поиск</string>
+    <string name="person_item_bottom">Профиль</string>
+
 </resources>
