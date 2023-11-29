@@ -1,12 +1,6 @@
-
 package com.example.port.ui.theme.elements
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -29,19 +24,22 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.port.R
 import com.example.port.data.models.Car
-
-
+import kotlinx.coroutines.launch
 @Composable
 fun CarCard(car: Car, onClick: () -> Unit) {
-
     val isDescriptionVisible = remember { mutableStateOf(false) }
     val resources = LocalContext.current.resources
+    val coroutineScope = rememberCoroutineScope()
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .clickable { isDescriptionVisible.value = !isDescriptionVisible.value }
+            .clickable {
+                coroutineScope.launch {
+                    isDescriptionVisible.value = !isDescriptionVisible.value
+                }
+            }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -66,34 +64,20 @@ fun CarCard(car: Car, onClick: () -> Unit) {
                 onClick = onClick,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = resources.getString(R.string.request) )
+                Text(text = resources.getString(R.string.request))
             }
-        }
-    }
-    if (isDescriptionVisible.value) {
-//        val isEditState = remember { mutableStateOf(false) }
-//        AnimatedContent(
-//            targetState = isEditState.value,
-//            transitionSpec = {
-//                (slideInVertically() with slideOutVertically()).using(SizeTransform(clip = false))
-//            }
-//        ) { targetState ->
-//            if (targetState) {
-//
-//            } else {
-//
-//            }
-//        }
 
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-
-        ) {
-            Text(text = "Описание продукта", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Год выпуска: ${car.year}")
+            AnimatedVisibility(visible = isDescriptionVisible.value) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(text = "Описание продукта", style = MaterialTheme.typography.bodyMedium)
+                    Text(text = "Год выпуска: ${car.year}")
+                }
+            }
         }
     }
 }
